@@ -1,3 +1,21 @@
+/*
+  Implement a class `Calculator` having below methods
+    - initialise a result variable in the constructor and keep updating it after every arithmetic operation
+    - add: takes a number and adds it to the result
+    - subtract: takes a number and subtracts it from the result
+    - multiply: takes a number and multiply it to the result
+    - divide: takes a number and divide it to the result
+    - clear: makes the `result` variable to 0
+    - getResult: returns the value of `result` variable
+    - calculate: takes a string expression which can take multi-arithmetic operations and give its result
+      example input: `10 +   2 *    (   6 - (4 + 1) / 2) + 7`
+      Points to Note: 
+        1. the input can have multiple continuous spaces, you're supposed to avoid them and parse the expression correctly
+        2. the input can have invalid non-numerical characters like `5 + abc`, you're supposed to throw error for such inputs
+
+  Once you've implemented the logic, test your code by running
+*/
+
 class Calculator {
   constructor() {
     this.result = 0;
@@ -17,7 +35,7 @@ class Calculator {
 
   divide(number) {
     if (number === 0) {
-      throw new Error('Division by zero is not allowed');
+      throw Error('Cannot divide by zero');
     }
     this.result /= number;
   }
@@ -31,24 +49,29 @@ class Calculator {
   }
 
   calculate(expression) {
-    const sanitizedExpression = expression.replace(/\s+/g, ''); // Remove continuous spaces
-    const isValid = /^[\d\s()+\-*\/.]*$/.test(sanitizedExpression); // Validate expression
-
-    if (!isValid) {
-      throw new Error('Invalid expression');
-    }
-
+    
+    expression = expression.replace(/\s+/g, ' ').trim();
+    if (/\/\s*0(?!\.)/.test(expression)) {
+      throw new Error("Division by zero");
+  }
+   
+    // Evaluate the expression
     try {
-      this.result = eval(sanitizedExpression); // Evaluate the expression using eval (Note: eval is used here for simplicity)
+      this.result = eval(expression);
     } catch (error) {
-      throw new Error('Error in evaluating expression');
+      throw new  Error('Error evaluating expression');
     }
   }
 }
 
-// Test cases
-const calculator = new Calculator();
-calculator.calculate('10 + 2 * (6 - (4 + 1) / 2) + 7');
-console.log(calculator.getResult()); // Expected output: 21
+
+
+// const calculator= new Calculator();
+// try {
+//   calculator.calculate('10 + 2 * (6 - (4 + 1) / 2) + 7');
+//   console.log('Result:', calculator.getResult()); 
+// } catch (error) {
+//   console.error(error.message);
+// }
 
 module.exports = Calculator;

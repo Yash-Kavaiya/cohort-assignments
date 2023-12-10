@@ -9,58 +9,65 @@
 
   Once you've implemented the logic, test your code by running
 */
-
 class Todo {
   constructor() {
-    this.todos = [];
+    this.todoList = [];
   }
 
   add(todo) {
-    this.todos.push(todo);
+    this.todoList.push(todo);
   }
 
-  remove(indexOfTodo) {
-    if (indexOfTodo >= 0 && indexOfTodo < this.todos.length) {
-      this.todos.splice(indexOfTodo, 1);
-    } else {
-      throw new Error('Index out of range');
-    }
+  remove(index) {
+    if (index >= 0 && index < this.todoList.length) {
+      this.todoList.splice(index, 1);
+    } 
   }
 
   update(index, updatedTodo) {
-    if (index >= 0 && index < this.todos.length) {
-      this.todos[index] = updatedTodo;
-    } else {
-      throw new Error('Index out of range');
+    if (index >= 0 && index < this.todoList.length) {
+      this.todoList[index] = updatedTodo;
     }
   }
 
   getAll() {
-    return this.todos;
+    return this.todoList;
   }
 
-  get(indexOfTodo) {
-    if (indexOfTodo >= 0 && indexOfTodo < this.todos.length) {
-      return this.todos[indexOfTodo];
+  get(index) {
+    if (index >= 0 && index < this.todoList.length) {
+      return this.todoList[index];
     } else {
-      throw new Error('Index out of range');
+      return null; 
     }
   }
+  
 
   clear() {
-    this.todos = [];
+    this.todoList = [];
   }
 }
 
-// Test cases
-const todoList = new Todo();
-todoList.add('Task 1');
-todoList.add('Task 2');
-console.log(todoList.getAll()); // Expected output: ['Task 1', 'Task 2']
-todoList.update(0, 'Updated Task 1');
-console.log(todoList.get(0)); // Expected output: 'Updated Task 1'
-todoList.remove(1);
-console.log(todoList.getAll()); // Expected output: ['Updated Task 1']
-todoList.clear();
-console.log(todoList.getAll()); // Expected output: []
+// Example usage:
+// const todoList = new Todo();
+
+// try {
+//   todoList.add('Task 1');
+//   todoList.add('Task 2');
+//   todoList.add('Task 3');
+
+//   console.log('All Todos:', todoList.getAll());
+
+//   todoList.update(1, 'Updated Task 2');
+//   console.log('Updated Task 2:', todoList.get(1));
+
+//   todoList.remove(0);
+//   console.log('Remaining Todos:', todoList.getAll());
+
+//   todoList.clear();
+//   console.log('Cleared Todos:', todoList.getAll());
+// } catch (error) {
+//   console.error(error.message);
+// }
+
 module.exports = Todo;
